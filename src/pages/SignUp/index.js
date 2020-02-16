@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropType from 'prop-types';
 
+import { useDispatch, useSelector } from 'react-redux';
 import BackGround from '~/components/Background';
 import {
   Form,
@@ -10,40 +11,58 @@ import {
   SigninkText,
   SubmitButton,
 } from './styles';
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 function SignUp({ navigation }) {
-  const email = useRef();
-  const passwrod = useRef();
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
 
-  function handleSubmit() {}
+  const emailRef = useRef();
+  const passwrodRef = useRef();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit() {
+    dispatch(signUpRequest(name, email, password));
+  }
   return (
     <BackGround>
       <Container>
         <Form>
           <FormInput
+            value={name}
+            onChangeText={txt => setName(txt)}
+            icon="person-outline"
+            placeholder="Seu nome Completo"
+            returnKeyType="next"
+            onSubmitEditing={() => emailRef.current.focus()}
+          />
+          <FormInput
             icon="mail-outline"
             keyboarType="email-address"
             placeholder="Digite seu e-mail"
-            returnKeyType="next"
-            onSubmitEditing={() => email.current.focus()}
-          />
-          <FormInput
-            icon="person-outline"
-            placeholder="Seu nome Completo"
+            value={email}
+            onChangeText={txt => setEmail(txt)}
             autoCorrect={false}
             autoCapitalize="none"
             returnKeyType="next"
-            ref={email}
-            onSubmitEditing={() => passwrod.current.focus()}
+            ref={emailRef}
+            onSubmitEditing={() => passwrodRef.current.focus()}
           />
           <FormInput
+            value={password}
+            onChangeText={txt => setPassword(txt)}
             icon="lock-outline"
             secureTextEntry
             placeholder="Sua senha secreta"
-            ref={passwrod}
+            ref={passwrodRef}
             onSubmitEditing={handleSubmit}
           />
-          <SubmitButton onPress={() => {}}>Cadastrar</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            Cadastrar
+          </SubmitButton>
         </Form>
 
         <SignLink
