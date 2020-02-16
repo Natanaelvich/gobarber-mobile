@@ -5,19 +5,19 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import './config/ReactotronConfig';
 
-import Routes from './routes';
+import App from './App';
 import { persistor, store } from './store';
 
 YellowBox.ignoreWarnings([
   'Warning: Async Storage has been extracted from react-native core',
 ]);
 
-export default function App() {
+export default function Index() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <StatusBar backgroundColor="#7159c1" barStyle="light-content" />
-        <Routes />
+        <App />
       </PersistGate>
     </Provider>
   );
