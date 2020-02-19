@@ -10,6 +10,7 @@ import { persistor, store } from './store';
 
 YellowBox.ignoreWarnings([
   'Warning: Async Storage has been extracted from react-native core',
+  'Warning: DatePickerAndroid has been merged with DatePickerIOS and will be removed',
 ]);
 
 export default function Index() {

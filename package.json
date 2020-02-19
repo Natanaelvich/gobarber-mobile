@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "clr": "cd android && ./gradlew clean && cd ../"
+    "clr": "cd android && ./gradlew clean && cd ../",
+    "server": "cd .. && cd backend && yarn dev"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.6.1",
